@@ -57,14 +57,14 @@ class UploadState extends State<Upload> {
       // convert images to list of files
       imagesList = images.map((e) => File(e.path)).toList();
       // add data to map
-      _data['submit'] = 'submit';
-      _data['type'] = 'image/jpg';
-      // loop through images list and add to multipart file
-      for (var image in imagesList) {
-        _data['images[]'] = await MultipartFile.fromFile(image.path);
-        // upload to server using api
-        uploadToServer(_data);
-      }
+      // _data['submit'] = 'submit';
+      // _data['type'] = 'image/jpg';
+      // // loop through images list and add to multipart file
+      // for (var image in imagesList) {
+      //   _data['images[]'] = await MultipartFile.fromFile(image.path);
+      // }
+      // upload to server using api
+      uploadToServer(imagesList);
     }
   }
 

@@ -9,17 +9,28 @@ class Api {
     ),
   );
 
-  static Future<Response> uploadMultiFile(
-      {required Map<String, dynamic> data}) async {
-    FormData formData = FormData.fromMap(data);
+  static Future<Response> uploadMultiFile({required List data}) async {
+    FormData formData =
+        FormData.fromMap({"submit": "submit", "name": "RawezhCode"});
 
-    print('formData: ${formData.fields}}');
+    for (var image in data) {
+      // upload to server using api
+      formData.files.add(MapEntry(
+        'images[]',
+        await MultipartFile.fromFile(
+          image.path,
+          filename: image.path.split('/').last,
+        ),
+      ));
+    }
+
+    // print('formData: ${formData.fields}}');
 
     return dio.post(
       '/upload.php',
       data: formData,
       options: Options(
-        contentType: 'multipart/form-data',
+        contentType: 'application/json',
       ),
     );
   } //end of login
